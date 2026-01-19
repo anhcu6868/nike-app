@@ -1,5 +1,11 @@
+import Nav from './components/Nav'
+
 const App = () => {
-  return <div className="bg-red-400 text-6xl">App</div>
+  return (
+    <div className="p-10 xl:px-24">
+      <Nav />
+    </div>
+  )
 }
 
 export default App
