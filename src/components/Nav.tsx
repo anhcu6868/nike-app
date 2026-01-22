@@ -25,7 +25,7 @@ const Nav = () => {
         <ul className="flex flex-col rounded-lg border border-gray-200 bg-gray-50 p-4 text-lg lg:flex-row lg:space-x-8 lg:border-none lg:bg-transparent">
           {ROUTES.map((route, i) => (
             <li
-              className={`rounded px-3 py-2 hover:text-blue-500 lg:cursor-pointer ${
+              className={`rounded px-3 py-2 lg:cursor-pointer lg:hover:text-blue-500 ${
                 i === 0
                   ? 'bg-blue-500 text-white lg:bg-transparent lg:text-blue-500'
                   : 'hover:bg-gray-100 lg:hover:bg-transparent'
