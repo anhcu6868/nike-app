@@ -6,12 +6,18 @@ type SelectProps = {
   title?: string
   options: Array<number>
   className: string
+  defaultValue: number | string
 }
-const Select: FC<SelectProps> = ({ title, options, className }) => {
+const Select: FC<SelectProps> = ({
+  title,
+  options,
+  className,
+  defaultValue,
+}) => {
   return (
     <div className="relative">
       <select
-        defaultValue={''}
+        defaultValue={defaultValue || ''}
         className={twMerge(
           `w-24 appearance-none border border-gray-300 bg-white p-4 ${className}`,
         )}

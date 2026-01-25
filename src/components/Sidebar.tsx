@@ -23,7 +23,10 @@ const Sidebar = ({ children, isOpen, onClose }: SidebarProps) => {
       </div>
       {/* Overlay */}
       {isOpen && (
-        <div className="fixed top-0 left-0 z-20 h-full w-full bg-black opacity-50" />
+        <div
+          onClick={onClose}
+          className="fixed top-0 left-0 z-20 h-full w-full bg-black opacity-50"
+        />
       )}
     </div>
   )

@@ -3,37 +3,53 @@ import Select from './Select'
 import { QTY, SIZES } from '../constants'
 type CartItemProps = {
   item: {
-    src: string
-    title: string
-    description: string
-    price: number
+    product: {
+      id: number
+      src: string
+      className: string
+      title: string
+      description: string
+      price: number
+    }
+    qty: number
+    size: number
   }
 }
 
-const CartItem = ({ item }: CartItemProps) => {
+const CartItem = ({ item: { product, qty, size } }: CartItemProps) => {
   return (
     <div className="cursor-pointer space-y-2 bg-gray-50 hover:bg-[#DAFFA2]">
       <div className="flex space-x-2 p-2">
         {/* Image */}
-        <img className="h-24" src={item.src} />
+        <img className="h-24" src={product.src} />
         <div className="space-y-2">
           {/* Title & Description */}
-          <div className="font-bold">{item.title}</div>
-          <div className="text-sm text-gray-400">{item.description}</div>
+          <div className="font-bold">{product.title}</div>
+          <div className="text-sm text-gray-400">{product.description}</div>
         </div>
         {/* Price */}
-        <div className="font-bold">{item.price}$</div>
+        <div className="font-bold">{product.price}$</div>
       </div>
 
       <div className="flex justify-between">
         <div className="flex space-x-6 pl-32">
           <div>
             <div className="font-bold">SIZE</div>
-            <Select title="" options={SIZES} className={'w-16 p-1'} />
+            <Select
+              defaultValue={size}
+              title=""
+              options={SIZES}
+              className={'w-16 p-1 pl-2'}
+            />
           </div>
           <div>
             <div className="font-bold">QTY</div>
-            <Select title="" options={QTY} className={'w-16 p-1'} />
+            <Select
+              defaultValue={qty}
+              title=""
+              options={QTY}
+              className={'w-16 p-1 pl-2'}
+            />
           </div>
         </div>
         <button>
