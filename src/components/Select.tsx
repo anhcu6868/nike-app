@@ -2,7 +2,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import type { FC } from 'react'
 
 type SelectProps = {
-  title: string
+  title?: string
   options: Array<number>
 }
 const Select: FC<SelectProps> = ({ title, options }) => {
