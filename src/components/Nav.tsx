@@ -4,8 +4,11 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import { useState } from 'react'
 
 const ROUTES = ['Home', 'About', 'Services', 'Pricing', 'Contact']
+type NavProps = {
+  onClickShoppingBtn: () => void
+}
 
-const Nav = () => {
+const Nav = ({ onClickShoppingBtn }: NavProps) => {
   const [isMobileMenu, setIsMobileMenu] = useState(false)
   return (
     <nav className="relative z-10 flex flex-wrap items-center justify-between">
@@ -38,7 +41,10 @@ const Nav = () => {
         </ul>
       </div>
       {/* Cart button */}
-      <div className="fixed bottom-4 left-4 lg:static lg:mr-8">
+      <div
+        onClick={onClickShoppingBtn}
+        className="fixed bottom-4 left-4 lg:static lg:mr-8"
+      >
         <div className="flex-center h-12 w-12 cursor-pointer rounded-full bg-white shadow-md">
           <TbShoppingBag />
         </div>
