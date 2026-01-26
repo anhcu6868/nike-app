@@ -1,4 +1,4 @@
-type CardProps = {
+export type CardProps = {
   item: {
     id: number
     src: string
@@ -7,11 +7,22 @@ type CardProps = {
     description: string
     price: number
   }
+  onClickCard: (item: {
+    id: number
+    src: string
+    className: string
+    title: string
+    description: string
+    price: number
+  }) => void
 }
 
-const Card = ({ item }: CardProps) => {
+const Card = ({ item, onClickCard }: CardProps) => {
   return (
-    <div className="relative max-w-xl cursor-pointer">
+    <div
+      className="relative max-w-xl cursor-pointer"
+      onClick={() => onClickCard(item)}
+    >
       {/* scale wrapper */}
       <div className="transition hover:scale-105">
         {/* Card content */}

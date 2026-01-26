@@ -16,6 +16,7 @@ const FAKE_CART_ITEMS = SHOE_LIST.map((shoe) => {
   }
 })
 const App = () => {
+  const [currentShoe, setCurrentShoe] = useState(SHOE_LIST[0])
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   // Get the value from local storage on component mount
   useEffect(() => {
@@ -35,8 +36,8 @@ const App = () => {
   return (
     <div className="animate-fadeIn dark:bg-night p-10 xl:px-24">
       <Nav onClickShoppingBtn={() => setSidebarOpen(true)} />
-      <ShoeDetail />
-      <NewArrivalsSection items={SHOE_LIST} />
+      <ShoeDetail shoe={currentShoe} />
+      <NewArrivalsSection items={SHOE_LIST} onClickCard={setCurrentShoe} />
       <Sidebar onClose={() => setSidebarOpen(false)} isOpen={isSidebarOpen}>
         <Cart cartItems={FAKE_CART_ITEMS} />
       </Sidebar>
