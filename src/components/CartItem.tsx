@@ -18,23 +18,23 @@ type CartItemProps = {
 
 const CartItem = ({ item: { product, qty, size } }: CartItemProps) => {
   return (
-    <div className="cursor-pointer space-y-2 bg-gray-50 hover:bg-[#DAFFA2]">
+    <div className="dark:hover:bg-night-50 cursor-pointer space-y-2 bg-gray-50 hover:bg-[#DAFFA2] dark:bg-transparent">
       <div className="flex space-x-2 p-2">
         {/* Image */}
         <img className="h-24" src={product.src} />
         <div className="space-y-2">
           {/* Title & Description */}
-          <div className="font-bold">{product.title}</div>
+          <div className="font-bold dark:text-white">{product.title}</div>
           <div className="text-sm text-gray-400">{product.description}</div>
         </div>
         {/* Price */}
-        <div className="font-bold">{product.price}$</div>
+        <div className="font-bold dark:text-white">{product.price}$</div>
       </div>
 
       <div className="flex justify-between">
         <div className="flex space-x-6 pl-32">
           <div>
-            <div className="font-bold">SIZE</div>
+            <div className="font-bold dark:text-white">SIZE</div>
             <Select
               defaultValue={size}
               title=""
@@ -43,7 +43,7 @@ const CartItem = ({ item: { product, qty, size } }: CartItemProps) => {
             />
           </div>
           <div>
-            <div className="font-bold">QTY</div>
+            <div className="font-bold dark:text-white">QTY</div>
             <Select
               defaultValue={qty}
               title=""
@@ -52,8 +52,8 @@ const CartItem = ({ item: { product, qty, size } }: CartItemProps) => {
             />
           </div>
         </div>
-        <button>
-          <CiTrash />
+        <button className="cursor-pointer text-black dark:text-white">
+          <CiTrash size={25} />
         </button>
       </div>
     </div>

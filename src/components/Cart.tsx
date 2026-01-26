@@ -18,7 +18,7 @@ type CartProps = {
 const Cart = ({ cartItems }: CartProps) => {
   return (
     <>
-      <h2 className="mb-5 text-2xl font-bold">Cart</h2>
+      <h2 className="mb-5 text-2xl font-bold dark:text-white">Cart</h2>
       <ul className="space-y-5">
         {cartItems.map((cartItem) => (
           <li key={cartItem.product.id}>
