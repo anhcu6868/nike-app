@@ -6,22 +6,27 @@ type SelectProps = {
   title?: string
   options: Array<number>
   className?: string
-  defaultValue?: number | string
+  value: number | null
+  onChange?: (value: number) => void
 }
 const Select: FC<SelectProps> = ({
   title,
   options,
   className,
-  defaultValue,
+  value,
+  onChange,
 }) => {
   return (
     <div className="relative dark:text-black">
+      {/* Select */}
       <select
-        defaultValue={defaultValue || ''}
+        onChange={(e) => onChange!(Number(e.target.value))}
+        value={value || ''}
         className={twMerge(
           `w-24 cursor-pointer appearance-none border border-gray-300 bg-white p-4 dark:text-black ${className}`,
         )}
       >
+        {/* Options */}
         <option value="" disabled hidden>
           {title}
         </option>
@@ -31,6 +36,7 @@ const Select: FC<SelectProps> = ({
           </option>
         ))}
       </select>
+      {/* Icon ArrowDown of Select */}
       <div className="flex-center pointer-events-none absolute inset-y-0 right-0 pr-3">
         <IoIosArrowDown />
       </div>

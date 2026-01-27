@@ -1,17 +1,24 @@
 import Select from './Select'
-import { SIZES, QTY } from '../constants'
+import { SIZES, QTY, SHOE_LIST } from '../constants'
+import { useState } from 'react'
 
 type ShoeDetailProps = {
-  shoe: {
-    id: number
-    src: string
-    title: string
-    description: string
-    price: number
-  }
+  shoe: (typeof SHOE_LIST)[number]
+  onClickAdd: (
+    product: (typeof SHOE_LIST)[number],
+    qty: number | null,
+    size: number | null,
+  ) => void
 }
 
-const ShoeDetail = ({ shoe }: ShoeDetailProps) => {
+const ShoeDetail = ({ shoe, onClickAdd }: ShoeDetailProps) => {
+  const [form, setForm] = useState<{
+    qty: number | null
+    size: number | null
+  }>({
+    qty: null,
+    size: null,
+  })
   return (
     <div className="flex flex-col space-y-4 lg:flex-row-reverse dark:text-white">
       {/* Shoe image */}
@@ -30,12 +37,25 @@ const ShoeDetail = ({ shoe }: ShoeDetailProps) => {
           <div className="text-3xl font-extrabold md:text-6xl">
             {shoe.price}$
           </div>
-          <Select title={'QTY'} options={QTY} />
-          <Select title={'SIZE'} options={SIZES} />
+          <Select
+            value={form.qty}
+            onChange={(qty) => setForm({ ...form, qty })}
+            title={'QTY'}
+            options={QTY}
+          />
+          <Select
+            value={form.size}
+            onChange={(size) => setForm({ ...form, size })}
+            title={'SIZE'}
+            options={SIZES}
+          />
         </div>
         {/* Shoe buttons and links */}
         <div className="space-x-10">
-          <button className="h-14 w-44 cursor-pointer bg-black text-white hover:bg-gray-900 active:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-amber-50 dark:active:bg-amber-100">
+          <button
+            onClick={() => onClickAdd(shoe, form.qty, form.size)}
+            className="h-14 w-44 cursor-pointer bg-black text-white hover:bg-gray-900 active:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-amber-50 dark:active:bg-amber-100"
+          >
             Add to bag
           </button>
           <a

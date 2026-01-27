@@ -1,5 +1,4 @@
-import { BiMoon } from 'react-icons/bi'
-import { BiSun } from 'react-icons/bi'
+import { BiMoon, BiSun } from 'react-icons/bi'
 import { useEffect, useState } from 'react'
 import Nav from './components/Nav'
 import NewArrivalsSection from './components/NewArrivalsSection'
@@ -8,39 +7,69 @@ import Sidebar from './components/Sidebar'
 import { SHOE_LIST } from './constants'
 import Cart from './components/Cart'
 
-const FAKE_CART_ITEMS = SHOE_LIST.map((shoe) => {
-  return {
-    product: shoe,
-    qty: 1,
-    size: 44,
-  }
-})
+type CartItem = {
+  product: (typeof SHOE_LIST)[number]
+  qty: number
+  size: number
+}
+
 const App = () => {
   const [currentShoe, setCurrentShoe] = useState(SHOE_LIST[0])
   const [isSidebarOpen, setSidebarOpen] = useState(false)
-  // Get the value from local storage on component mount
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  console.log(cartItems)
+
+  // Get value of isDarkMode from localStorage
   useEffect(() => {
     if (localStorage.getItem('isDarkMode') === 'true') {
-      window.document.documentElement.classList.add('dark')
+      document.documentElement.classList.add('dark')
     }
   }, [])
+
+  // DarkMode Handler
   const toggleDarkMode = () => {
-    window.document.documentElement.classList.toggle('dark')
-    // Save to local storage
-    if (window.document.documentElement.classList.contains('dark')) {
-      localStorage.setItem('isDarkMode', 'true')
-    } else {
-      localStorage.setItem('isDarkMode', 'false')
+    document.documentElement.classList.toggle('dark')
+    localStorage.setItem(
+      'isDarkMode',
+      document.documentElement.classList.contains('dark') ? 'true' : 'false',
+    )
+  }
+
+  // AddToCart Handler
+  const addToCart = (
+    product: (typeof SHOE_LIST)[number],
+    qty: number | null,
+    size: number | null,
+  ) => {
+    if (qty !== null && size !== null) {
+      const updatedCartItems = [...cartItems]
+      const existingItemIndex = updatedCartItems.findIndex(
+        (item) => item.product.id === product.id,
+      )
+
+      if (existingItemIndex > -1) {
+        updatedCartItems[existingItemIndex] = {
+          product,
+          qty,
+          size,
+        }
+      } else {
+        updatedCartItems.push({ product, qty, size })
+      }
+
+      setCartItems(updatedCartItems)
     }
   }
+
   return (
     <div className="animate-fadeIn dark:bg-night p-10 xl:px-24">
       <Nav onClickShoppingBtn={() => setSidebarOpen(true)} />
-      <ShoeDetail shoe={currentShoe} />
+      <ShoeDetail shoe={currentShoe} onClickAdd={addToCart} />
       <NewArrivalsSection items={SHOE_LIST} onClickCard={setCurrentShoe} />
       <Sidebar onClose={() => setSidebarOpen(false)} isOpen={isSidebarOpen}>
-        <Cart cartItems={FAKE_CART_ITEMS} />
+        <Cart cartItems={cartItems} />
       </Sidebar>
+
       {/* Darkmode */}
       <div className="fixed right-4 bottom-4">
         <button
