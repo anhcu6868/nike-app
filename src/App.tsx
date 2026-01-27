@@ -35,6 +35,16 @@ const App = () => {
     )
   }
 
+  // Remove cart item Handler
+  const removeCartItem = (productId: number) => {
+    const updatedCartItems = [...cartItems]
+    const existingItemIndex = cartItems.findIndex(
+      (item) => item.product.id === productId,
+    )
+    updatedCartItems.splice(existingItemIndex, 1)
+    setCartItems(updatedCartItems)
+  }
+
   // AddToCart Handler
   const addToCart = (
     product: (typeof SHOE_LIST)[number],
@@ -67,7 +77,7 @@ const App = () => {
       <ShoeDetail shoe={currentShoe} onClickAdd={addToCart} />
       <NewArrivalsSection items={SHOE_LIST} onClickCard={setCurrentShoe} />
       <Sidebar onClose={() => setSidebarOpen(false)} isOpen={isSidebarOpen}>
-        <Cart cartItems={cartItems} />
+        <Cart onDeleteCartItem={removeCartItem} cartItems={cartItems} />
       </Sidebar>
 
       {/* Darkmode */}

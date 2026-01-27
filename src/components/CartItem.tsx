@@ -14,9 +14,13 @@ type CartItemProps = {
     qty: number
     size: number
   }
+  onDeleteCartItem: (id: number) => void
 }
 
-const CartItem = ({ item: { product, qty, size } }: CartItemProps) => {
+const CartItem = ({
+  item: { product, qty, size },
+  onDeleteCartItem,
+}: CartItemProps) => {
   return (
     <div className="dark:hover:bg-night-50 cursor-pointer space-y-2 bg-gray-50 hover:bg-[#DAFFA2] dark:bg-transparent">
       <div className="flex space-x-2 p-2">
@@ -52,8 +56,9 @@ const CartItem = ({ item: { product, qty, size } }: CartItemProps) => {
             />
           </div>
         </div>
+        {/* Delete cart item */}
         <button className="cursor-pointer text-black dark:text-white">
-          <CiTrash size={25} />
+          <CiTrash onClick={() => onDeleteCartItem(product.id)} size={25} />
         </button>
       </div>
     </div>

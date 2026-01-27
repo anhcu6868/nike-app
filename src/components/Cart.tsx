@@ -13,16 +13,17 @@ type CartProps = {
     qty: number
     size: number
   }[]
+  onDeleteCartItem: (id: number) => void
 }
 
-const Cart = ({ cartItems }: CartProps) => {
+const Cart = ({ cartItems, onDeleteCartItem }: CartProps) => {
   return (
     <>
       <h2 className="mb-5 text-2xl font-bold dark:text-white">Cart</h2>
       <ul className="space-y-5">
         {cartItems.map((cartItem) => (
           <li key={cartItem.product.id}>
-            <CartItem item={cartItem} />
+            <CartItem onDeleteCartItem={onDeleteCartItem} item={cartItem} />
           </li>
         ))}
       </ul>
